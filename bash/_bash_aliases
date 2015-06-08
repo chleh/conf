@@ -1,0 +1,106 @@
+# ~/.bash_aliases
+# Alias definitions for BASH
+
+
+export EDITOR=vim
+
+
+# enable color support of ls and also add handy aliases
+if [ "$TERM" != "dumb" ]; then
+    eval "`dircolors -b`"
+    alias ls='ls --group-directories-first --color=auto'
+    alias ll='ls -lh --group-directories-first --color=auto'
+    alias lL='ls -lLh --group-directories-first --color=auto'
+    alias la='ls -A --group-directories-first --color=auto'
+    alias grep='grep --color=auto'
+    alias o='xdg-open'
+fi
+
+alias mnt=mount
+
+..() {
+    if [ -z "$1" ]; then
+	cd ..
+    elif [ "$1" = ".." ]; then
+	local n=0
+	while [ "$1" = ".." ]; do
+	    n=$((n+1))
+	    shift
+	done
+	if [ "$1" ] || [ $# -ne 0 ]; then
+	    echo "Error: Wrong argument(s): $@" >&2
+	    return 1
+	else
+	    for i in `seq 1 $n`; do cd ..; done
+	fi
+    elif [ $# -eq 1 ] && expr match "$1" "[1-9][0-9]*" >/dev/null; then
+	for i in `seq 1 $1`; do cd ..; done
+    else
+	echo "Error: Wrong argument(s): $@" >&2
+	return 1
+    fi
+    pwd
+}
+
+# start program
+spawn() {
+    if [ "$1" ]; then
+	"$@" &>/dev/null &
+	disown $!
+    else
+	echo "Error: No command given" >&2
+	return 1
+    fi
+}
+
+# uses sudo su to gain root privileges (if no arguments are given),
+# i.e. shell starts in current directory
+su() {
+    if [ "$1" ]; then
+	`which su` "$@"
+    else
+	`which sudo` su
+    fi
+}
+
+# sudo behaves like sudo -i if no arguments are given
+sudo() {
+    if [ "$1" ]; then
+	`which sudo` "$@"
+    else
+	`which sudo` -i
+    fi
+}
+
+# unset vars related to proxy settings
+no_proxy() {
+    local SUCC=0
+
+    for i in HTTP_PROXY http_proxy FTP_PROXY ftp_proxy NO_PROXY no_proxy; do
+	if declare -p $i &>/dev/null; then
+	    unset $i
+	    [ $SUCC -eq 1 ] && echo -n ', '
+	    echo -n $i
+	    SUCC=1
+	fi
+    done
+
+    if [ $SUCC -eq 1 ]; then
+	echo " unset."
+    else
+	echo "No proxy variables are set."
+	return 1
+    fi
+}
+
+# ensure that catted output to a terminal ends with a blank line
+cat() {
+    if tty -s && tty -s <&1; then
+	{ `which cat` "$@"; echo; } | sed '$ { /^$/ d }'
+    else
+	`which cat` "$@"
+    fi
+}
+
+# vim: ft=sh
+

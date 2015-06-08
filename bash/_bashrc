@@ -1,0 +1,119 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+export EDITOR=/usr/bin/vim
+export PATH="$HOME/bin:$PATH"
+
+# don't put duplicate lines in the history. See bash(1) for more options
+#export HISTCONTROL=ignoredups
+export HISTCONTROL=erasedups # delete same commands from history
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
+
+
+# set prompt
+PS1_COLOR=''
+PS1_UNCOLOR=''
+title=''
+
+
+
+isSshConn() {
+    if [ "$SSH_CONNECTION" ] && [ "$SSH_CLIENT" ] && [ "$SSH_TTY" ]; then
+        return 0
+    fi
+
+    local pid=$$
+    local sshd="`which sshd`"
+
+    pstree -p -s $pid -l -A | head -n 1 |  sed -e 's_[^0-9]*(\([0-9]\+\))_\1\n_g' \
+    | (
+        #echo "$pid $sshd"
+        while read p; do
+            #echo "-> $p `readlink /proc/$p/exe`"
+            if [ "`readlink /proc/$p/exe`" = "$sshd" ]; then
+                #echo "in ssh"
+                exit 0
+            fi
+
+            if [ "$p" = "$pid" ]; then break; fi
+        done
+
+        #echo "no ssh"
+        exit 1
+    )
+
+    return $?
+}
+
+
+
+#if [ "$TERM" = xterm ]; then
+if tput colors >/dev/null 2>&1; then
+    if [ "$(readlink /proc/$PPID/exe)" != "$(readlink /proc/$$/exe)" ] \
+    || [ "$(ps -p $PPID h -o uid)" != "$(ps -p $$ h -o uid)" ]; then
+	# the parent is not the same app or has not the same uid
+	# if [ -z "$SSH_CONNECTION" ]; then
+        if ! isSshConn; then
+	    # no ssh connection - green
+	    PS1_COLOR='32m'
+	else
+	    # ssh connection - blue
+	    PS1_COLOR='34m'
+	fi
+    # elif [ -z "$SSH_CONNECTION" ]; then
+    elif ! isSshConn; then
+	# no ssh connection - grey  bg
+	PS1_COLOR='47m'
+    else
+	# ssh connection - blue, grey bg
+	PS1_COLOR='34m\033[47m'
+    fi
+fi
+
+if [ "$TERM" = xterm ]; then
+    title="\\[\033]0;\\w [\\u@\\h]\007\\]"
+fi
+
+if [ "$PS1_COLOR" ]; then
+	PS1_COLOR="\\[\\033[$PS1_COLOR\\]"
+	PS1_UNCOLOR='\[\033[0m\]'
+fi
+
+PS1="$PS1_COLOR\\u@\\h:\\W\\\$$PS1_UNCOLOR$title "
+
+unset PS1_COLOR PS1_UNCOLOR title
+unset -f isSshConn
+
+
+## disable beep on system console
+#case `tty` in
+#    /dev/tty?)
+#	setterm -blength 0 ;;
+#esac
+
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+

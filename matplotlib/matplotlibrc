@@ -1,0 +1,6 @@
+backend: Cairo
+mathtext.fontset: stix
+mathtext.fallback_to_cm: True
+mathtext.default: it
+axes.formatter.use_mathtext: True
+legend.frameon: False
