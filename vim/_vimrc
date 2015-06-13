@@ -3,9 +3,9 @@
 "
 set nocp  " for cpp omnicomplete
 set formatoptions=croq " ins comm leader, fmt comm
-"set formatoptions=c " ins comm leader, fmt comm
 "set autoindent
 set shiftwidth=4
+set shiftround
 set softtabstop=4
 set expandtab
 set textwidth=80
@@ -14,6 +14,10 @@ set showtabline=1
 syntax on
 set autochdir
 set wildmode=longest,list,full
+set scrolloff=2
+set hlsearch
+set ignorecase
+set smartcase
 
 set list
 
@@ -24,15 +28,14 @@ else
     nnoremap <silent> <F4> :call system("terminator >/dev/null 2>&1 & disown $!")<CR>
 endif
 
-set sessionoptions=blank,buffers,curdir,folds,help,tabpages,winsize
+set sessionoptions=blank,buffers,curdir,folds,help,tabpages,resize,winsize,winpos
 
-set ignorecase
-set smartcase
-set hlsearch
+" smart home
+noremap <expr> <silent> <Home> col('.') == match(getline('.'),'\S')+1 ? '0' : '^'
+imap <silent> <Home> <C-O><Home>
 
 if has('gui_running')
     colorscheme pyte
-    "colorscheme morning
     "set cursorline
 else
     colorscheme desert
@@ -42,6 +45,7 @@ endif
 """ copy and paste
 "
 vnoremap <C-Del> "+y
+vnoremap <C-Ins> "+p
 inoremap <C-Ins> <Esc>"+p`]a
 nnoremap <C-Ins> "+P`]
 
@@ -83,10 +87,12 @@ autocmd FileType tex,latex setlocal grepprg=grep\ -nH\ $*
 " format produced and viewers
 let g:Tex_DefaultTargetFormat = 'pdf'
 " let g:Tex_ViewRule_pdf = 'xdg-open out/$*.pdf'
+" let g:Tex_ViewRuleComplete_pdf = 'zathura -s -x "gvim --servername \"{v:servername}\" --remote +\%{line} \%{input}" $*.pdf  &'
 let g:Tex_ViewRuleComplete_pdf = 'xdg-open out/$*.pdf &'
 let g:Tex_ViewRule_ps = 'xdg-open'
 let g:Tex_ViewRule_dvi = 'xdg-open'
 
+" let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -interaction=nonstopmode -output-directory out $*'
 let g:Tex_CompileRule_pdf = 'pdflatex -output-directory=out -interaction=nonstopmode -halt-on-error $*'
 let g:Tex_GotoError = 0
 
@@ -96,9 +102,9 @@ let g:Tex_SmartKeyQuote = 0
 "let g:Tex_SmartQuoteClose = "\"'"
 
 " disable shift-F1...F4 hotkey mappings
-let g:Tex_HotKeyMappings = ""
 let g:Tex_Menus = 0
-"let g:Tex_PackagesMenu = 1
+let g:Tex_PackagesMenu = 0
+let g:Tex_HotKeyMappings = ""
 
 " customize folding
 let g:Tex_FoldedSections = 'part,chapter,%%fakesection'
@@ -146,7 +152,55 @@ nnoremap <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .
 let OmniCpp_ShowPrototypeInAbbr = 1
 let OmniCpp_SelectFirstItem = 2
 let OmniCpp_LocalSearchDecl = 1
-set completeopt=menu,menuone,preview
+set completeopt=menuone,preview,longest
 set cinoptions={.5s
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+
+cabbrev q Quit
+command -bang Quit call MyBufDel(<bang>0)
+function MyBufDel (isBang)
+    if winnr('$') == 1 && tabpagenr('$') == 1
+        if a:isBang == 1
+            quit!
+        else
+            quit
+        end
+    else
+        if a:isBang == 1
+            bd!
+        else
+            bd
+        end
+    endif
+endfunction
+
+
+ "" autocmd BufReadPost Session.vim call MyLoadSession()
+ "autocmd VimEnter Session.vim nested call MyLoadSession()
+ "autocmd VimLeave * call MySaveSession()
+ "
+ "function MySaveSession ()
+ "    " ask to save session if there is only one buffer open
+ "    if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) > 1
+ "        if empty(v:this_session)
+ "            let saveYesNo = 2
+ "            let sessionFile = fnamemodify(bufname(1), ':p:h') . '/Session.vim'
+ "        else
+ "            let saveYesNo = 1
+ "            let sessionFile = v:this_session
+ "        endif
+ "        if confirm ('Save session? ('.sessionFile.')', "&Yes\n&No", saveYesNo) == 1
+ "            execute 'mksession! '.sessionFile
+ "        endif
+ "    endif
+ "endfunction
+ "
+ "function MyLoadSession ()
+ "    if confirm ("Load this session?", "&Yes\n&No", 1) == 1
+ "        let thisBuf = bufname('%')
+ "        execute 'source '.thisBuf
+ "        execute 'bdelete '.thisBuf
+ "    endif
+ "endfunction
 

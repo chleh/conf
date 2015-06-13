@@ -1,8 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/lehmannc/prog/ogs5/debug/merged-tes-into-tneq/github-trunk-vanilla'
-let g:netrw_dirhist_2='/home/lehmannc/prog/ogs5/github-ogs5-trunk-vanilla/src'
-let g:netrw_dirhist_3='/home/lehmannc/prog/ogs5/github-ogs5-trunk-vanilla/src/FileIO'
-let g:netrw_dirhist_4='/home/lehmannc/prog/ogs5/github-ogs5-trunk-vanilla/src'
-let g:netrw_dirhist_5='/home/lehmannc/prog/ogs5/github-ogs5-trunk-vanilla/src/FEM'
-let g:netrw_dirhist_6='/usr/lib/python3.4/site-packages/pygit2'
