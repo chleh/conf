@@ -1,0 +1,92 @@
+alignment bottom_right
+#background yes
+background no
+border_width 1
+cpu_avg_samples 2
+default_color white
+default_outline_color white
+default_shade_color white
+draw_borders no
+draw_graph_borders yes
+draw_outline no
+draw_shades no
+use_xft yes
+xftfont DejaVu Sans Mono:size=9
+#gap_x 5
+#gap_y 60
+#minimum_size 200 50
+net_avg_samples 5
+no_buffers yes
+out_to_console no
+out_to_stderr no
+extra_newline no
+double_buffer yes
+own_window yes
+own_window_class Conky
+own_window_type desktop
+own_window_transparent yes
+#own_window_transparent no
+#own_window_colour ff0000
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+stippled_borders 0
+update_interval 2.0
+uppercase no
+use_spacer none
+show_graph_scale no
+show_graph_range no
+format_human_readable yes
+short_units yes
+gap_x 10
+gap_y 10
+#gap_y 32
+color1 bbbbbb
+
+TEXT
+
+${if_mounted /mnt/ufz-share-lehmannc}$else
+$endif${if_up enp0s25}$else
+${voffset 20}
+$endif${if_up wlp2s0}$else
+${voffset 20}
+$endif${if_up ppp0}$else
+${voffset 20}
+
+$endif${if_up tun0}$else
+$endif${if_up tun1}$else
+$endif${color1}ram $color  $mem/$memmax – $memperc% ${membar 4}
+${color1}swp $color  $swap/$swapmax – $swapperc% ${swapbar 4}
+${color1}cpu $color  ${cpu cpu1}% ${cpubar cpu1 4}
+${color1}    $color  ${cpu cpu2}% ${cpubar cpu2 4}
+${color1}    $color  ${cpu cpu3}% ${cpubar cpu3 4}
+${color1}    $color  ${cpu cpu4}% ${cpubar cpu4 4}
+$hr
+${color1}by cpu             pid   %cpu   %mem$color
+${top name 1} ${top pid 1} ${top cpu 1} ${top mem 1}
+${top name 2} ${top pid 2} ${top cpu 2} ${top mem 2}
+${top name 3} ${top pid 3} ${top cpu 3} ${top mem 3}
+${top name 4} ${top pid 4} ${top cpu 4} ${top mem 4}
+$hr
+${color1}by mem             pid   %cpu   %mem$color
+${top_mem name 1} ${top_mem pid 1} ${top_mem cpu 1} ${top_mem mem 1}
+${top_mem name 2} ${top_mem pid 2} ${top_mem cpu 2} ${top_mem mem 2}
+${top_mem name 3} ${top_mem pid 3} ${top_mem cpu 3} ${top_mem mem 3}
+${top_mem name 4} ${top_mem pid 4} ${top_mem cpu 4} ${top_mem mem 4}
+$hr
+${color1}/   $color-${fs_free /} ${fs_bar 4 /}
+${color1}~   $color-${fs_free /home/lehmannc} ${fs_bar 4 /home/lehmannc}${if_mounted /mnt/ufz-share-lehmannc}
+${color1}shr $color-${fs_free /mnt/ufz-share-lehmannc} ${fs_bar 4 /mnt/ufz-share-lehmannc}$endif
+$hr
+${color1}sda   $alignr${color}↑${diskio_read /dev/sda} ↓${diskio_write /dev/sda}
+${color1}${diskiograph_read /dev/sda 20,124 ffffff 999999} $alignr${diskiograph_write /dev/sda 20,124 ffffff 999999}
+$color$hr${if_up enp0s25}
+${color1}enp0s25 (${addr enp0s25}) $alignr$color↑${upspeed enp0s25} ↓${downspeed enp0s25}
+${color1}${upspeedgraph enp0s25 20,124 ffffff 999999} $alignr${downspeedgraph enp0s25 20,124 ffffff 999999}$endif${if_up wlp2s0}
+${color1}wlp2s0 (${wireless_essid wlp2s0}) $alignr$color↑${upspeed wlp2s0} ↓${downspeed wlp2s0}
+${color1}${upspeedgraph wlp2s0 20,124 ffffff 999999} $alignr${downspeedgraph wlp2s0 20,124 ffffff 999999}$endif${if_up ppp0}
+${color1}ppp0 (${addr ppp0}) $alignr$color↑${upspeed ppp0} ↓${downspeed ppp0}
+${color1}${upspeedgraph ppp0 20,124 ffffff 999999} $alignr${downspeedgraph ppp0 20,124 ffffff 999999}
+${color1}total traffic$color$alignr${execi 300 vnstat -m --oneline -i ppp0 | cut -d';' -f8,11 --output-delimiter=' -- '}$endif${if_up tun0}
+${color1}tun0 (${addr tun0})$endif${if_up tun1}
+${color1}tun1 (${addr tun1})$endif
+$color$hr
+${color1}upgradable pkgs  $color${texeci 7200 pacman -Sup --print-format "%n" | grep -v '^::' | wc -l}
