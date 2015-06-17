@@ -1,7 +1,7 @@
 # use 70% of the linewidth of a standard scrartcl
 # output will actually use 140% -> scale by 0.5
 
-figure.figsize: 5.7, 5.7
+figure.figsize: 6.9, 6.9
 # figure.dpi: 300
 figure.subplot.left: 0.15
 figure.subplot.bottom: 0.18

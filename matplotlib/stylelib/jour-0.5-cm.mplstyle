@@ -1,11 +1,12 @@
 # use 70% of the linewidth of a standard scrartcl
 # output will actually use 140% -> scale by 0.5
 
-figure.figsize: 5.7, 5.7
+figure.figsize: 6.9, 4.3
 # figure.dpi: 300
-figure.subplot.left: 0.15
+figure.subplot.left:   0.15
+figure.subplot.top:    0.925
 figure.subplot.bottom: 0.18
-figure.subplot.right: 0.95
+figure.subplot.right:  0.95
 
 # https://aur.archlinux.org/packages/otf-cm-unicode/
 mathtext.fontset: custom
