@@ -53,7 +53,7 @@ nnoremap <C-Ins> "+P`]
 """ GVim
 "
 set guifont=Monospace\ 9
-set guioptions=faigrLme
+set guioptions=faigrLe
 
 
 """ Session

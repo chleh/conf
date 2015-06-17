@@ -59,7 +59,8 @@ call IMAP('`H', '\hbar ', 'tex')
 call IMAP('NCM', "\\newcommand{\\<++>}{<++>}", 'tex')
 
 " includegraphics
-call IMAP('IGR', '\includegraphics[width=<++>\linewidth]{<+file+>}<++>', 'tex')
+" call IMAP('IGR', '\includegraphics[width=<++>\linewidth]{<+file+>}<++>', 'tex')
+call IMAP('IGR', '\includegraphics[scale=0.5]{<++>}<++>', 'tex')
 
 
 
