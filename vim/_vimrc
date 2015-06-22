@@ -84,16 +84,18 @@ autocmd FileType tex,latex setlocal formatoptions-=t
 " options controlling latex-suite
 autocmd FileType tex,latex setlocal grepprg=grep\ -nH\ $*
 
+""" gvim --servername GVIM --remote-expr "map(range(1, bufnr('$')), 'fnamemodify(bufname(v:val),\":p\")')"
+
 " format produced and viewers
 let g:Tex_DefaultTargetFormat = 'pdf'
 " let g:Tex_ViewRule_pdf = 'xdg-open out/$*.pdf'
-" let g:Tex_ViewRuleComplete_pdf = 'zathura -s -x "gvim --servername \"{v:servername}\" --remote +\%{line} \%{input}" $*.pdf  &'
-let g:Tex_ViewRuleComplete_pdf = 'xdg-open out/$*.pdf &'
+let g:Tex_ViewRuleComplete_pdf = 'zathura -x "gvim --servername \"{v:servername}\" --remote +\%{line} \%{input}" out/$*.pdf  &'
+" let g:Tex_ViewRuleComplete_pdf = 'xdg-open out/$*.pdf &'
 let g:Tex_ViewRule_ps = 'xdg-open'
 let g:Tex_ViewRule_dvi = 'xdg-open'
 
 " let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -interaction=nonstopmode -output-directory out $*'
-let g:Tex_CompileRule_pdf = 'pdflatex -output-directory=out -interaction=nonstopmode -halt-on-error $*'
+let g:Tex_CompileRule_pdf = 'pdflatex -output-directory=out -interaction=nonstopmode -halt-on-error -synctex=1 $*'
 let g:Tex_GotoError = 0
 
 " german quotes
