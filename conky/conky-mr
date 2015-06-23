@@ -1,0 +1,42 @@
+#!/usr/bin/python
+
+import subprocess as sp
+import os
+
+proc = sp.Popen(['mr', '-m', 'status'], stdout=sp.PIPE)
+
+# out, err = proc.communicate()
+
+mods = {}
+first_block = True
+cwd = os.getcwd()
+
+while True:
+    l = proc.stdout.readline().decode("utf-8")
+    if not l: break
+    l = l.rstrip()
+
+    if l.startswith("mr status: "):
+        if not first_block:
+            print()
+        else:
+            first_block = False
+        path = l[len("mr status: "):]
+        if path.startswith(cwd + "/"):
+            path = path[len(cwd)+1:]
+        print(path)
+    elif len(l) > 2 and l[2] == ' ':
+        h = l[0:2]
+        t = l[3:]
+        if h not in mods:
+            mods[h] = []
+        mods[h].append(t)
+    else:
+        for stat, paths in sorted(mods.items()):
+            s = "{}  {}".format(stat, " ".join(paths))
+            if len(s) > 80:
+                s = s[:77] + "..."
+            print(s)
+        mods.clear()
+        if l: print(l)
+
