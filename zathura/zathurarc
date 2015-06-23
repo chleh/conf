@@ -1,0 +1,12 @@
+# single
+map <C-s> set "pages-per-row 1"
+# two pages
+map <C-2> set "pages-per-row 2"
+
+map <C-1> adjust_window best-fit
+
+set guioptions shv
+set page-padding 10
+set pages-per-row 1
+set window-title-basename true
+
