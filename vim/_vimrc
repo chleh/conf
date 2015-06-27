@@ -48,6 +48,8 @@ vnoremap <C-Del> "+y
 vnoremap <C-Ins> "+p
 inoremap <C-Ins> <Esc>"+p`]a
 nnoremap <C-Ins> "+P`]
+" select pasted text
+nnoremap gp `[v`]
 
 
 """ GVim
