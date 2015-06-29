@@ -119,8 +119,10 @@ let g:Tex_FoldedMisc = '<<<'
 " workaround longtable environment behaving badly
 let g:Tex_Env_longtable = "\\begin{longtable}{<+format+>}\r<++>\r\\end{longtable}"
 
-" workaround some bug
-"let g:Tex_package_detected = ''
+" workaround some bugs
+let g:Tex_package_detected = 'graphicx'
+" change the respective line in texviewer.vim ~144
+"let g:Tex_ImageDir = '.'
 "
 """ LaTeX end
 
