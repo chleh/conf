@@ -107,7 +107,8 @@ let g:Tex_SmartKeyQuote = 0
 
 " disable shift-F1...F4 hotkey mappings
 let g:Tex_Menus = 0
-let g:Tex_PackagesMenu = 0
+" must be activated for <F5> in preamble to work
+let g:Tex_PackagesMenu = 1
 let g:Tex_HotKeyMappings = ""
 
 " customize folding
