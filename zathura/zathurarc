@@ -10,3 +10,5 @@ set page-padding 10
 set pages-per-row 1
 set window-title-basename true
 
+set window-icon /usr/share/icons/oxygen/128x128/mimetypes/application-pdf.png
+
