@@ -8,19 +8,29 @@ figure.subplot.bottom: 0.18
 figure.subplot.right: 0.95
 
 # https://aur.archlinux.org/packages/otf-cm-unicode/
-mathtext.fontset: custom
-mathtext.rm:  CMU Sans Serif
-mathtext.it:  CMU Sans Serif:italic
-mathtext.bf:  CMU Sans Serif:bold
-mathtext.cal: CMU Sans Serif:cursive
-mathtext.sf:  CMU Sans Serif
+# mathtext.fontset: custom
+# mathtext.rm:  CMU Sans Serif
+# mathtext.it:  CMU Sans Serif:italic
+# mathtext.bf:  CMU Sans Serif:bold
+# mathtext.cal: CMU Sans Serif:cursive
+# mathtext.sf:  CMU Sans Serif
 
+mathtext.fontset: custom
+mathtext.rm:  TeX Gyre Termes
+mathtext.it:  TeX Gyre Termes:italic
+mathtext.bf:  TeX Gyre Termes:bold
+mathtext.cal: TeX Gyre Termes:cursive
+mathtext.sf:  TeX Gyre Heros
 
 font.size: 16.0
 # font.sans-serif: STIXGeneral
-font.sans-serif : CMU Sans Serif
+# font.serif : CMU Sans Serif
+# font.sans-serif : CMU Sans Serif
+font.sans-serif : TeX Gyre Heros
+font.serif : TeX Gyre Termes
 # font.sans-serif : Latin Modern Sans
 # Bitstream Vera Sans, Lucida Grande, Verdana, Geneva, Lucid, Arial, Helvetica, Avant Garde, sans-serif
+font.family: serif
 
 axes.titlesize: large
 axes.labelsize: large
