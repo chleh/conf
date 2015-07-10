@@ -131,7 +131,7 @@ let g:Tex_package_detected = 'graphicx'
 """ c, c++
 "
 let g:C_LoadMenus = "false"
-"autocmd FileType c,cpp setlocal cindent
+autocmd FileType c,cpp setlocal cindent
 
 
 """ GNU Octave
@@ -160,7 +160,8 @@ let OmniCpp_ShowPrototypeInAbbr = 1
 let OmniCpp_SelectFirstItem = 2
 let OmniCpp_LocalSearchDecl = 1
 set completeopt=menuone,preview,longest
-set cinoptions={.5s
+" set cinoptions={.5s
+set cinoptions=g0
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 
