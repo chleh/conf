@@ -1,0 +1,38 @@
+[alias]
+    b  = branch
+    ci = commit
+    co = checkout
+    cp = cherry-pick
+    dd = difftool -d
+    dn = difftool --name-only
+    dt = difftool
+    mg = merge
+    mt = mergetool
+    rb = rebase
+    s  = status
+[core]
+    pager = less -RSX
+    excludesfile = ~/.gitignore
+[push]
+    default = simple
+
+[diff "bin"]
+    textconv = hexdump -v -C
+
+[diff "png"]
+    textconv = png2pnm -n
+
+[diff]
+    tool = meld
+
+[difftool "meld"]
+    cmd = meld \"$LOCAL\" \"$REMOTE\"
+
+# [alias]
+#     graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+# 
+[merge]
+    tool = meld
+
+[include]
+    path = .gituser
