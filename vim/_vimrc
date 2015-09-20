@@ -145,6 +145,10 @@ augroup END
 "
 autocmd! BufRead,BufNewFile *.plot setlocal filetype=gnuplot
 
+""" CSV files
+"
+autocmd! BufRead,BufNewFile *.csv setlocal nowrap
+
 
 """ tagbar plugin
 autocmd Filetype c,cpp,python,javascript nnoremap <silent><buffer> <F9> :TagbarToggle<CR>
