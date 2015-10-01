@@ -147,7 +147,7 @@ autocmd! BufRead,BufNewFile *.plot setlocal filetype=gnuplot
 
 """ CSV files
 "
-autocmd! BufRead,BufNewFile *.csv setlocal nowrap
+autocmd! BufRead,BufNewFile *.csv setlocal nowrap syntax=off cursorline
 
 
 """ tagbar plugin
