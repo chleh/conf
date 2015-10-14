@@ -10,6 +10,7 @@
     mg = merge
     mt = mergetool
     rb = rebase
+    rc = rebase --continue
     s  = status
 [core]
     pager = less -RSX
