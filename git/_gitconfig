@@ -42,3 +42,5 @@
 
 [include]
     path = .gituser
+[gui]
+	spellingdictionary = none
