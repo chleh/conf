@@ -5,10 +5,12 @@
     co = checkout
     cp = cherry-pick
     dd = difftool -d
+    dh = difftool -d HEAD^
     dn = difftool --name-only
     dt = difftool
     mg = merge
     mt = mergetool
+    pfush = push --force-with-lease
     rb = rebase
     rc = rebase --continue
     s  = status
