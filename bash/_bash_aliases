@@ -18,6 +18,34 @@ fi
 
 alias mnt=mount
 
+# Wrapper for find
+# Usage:
+# f PATTERN                 -->  find . -name PATTERN   or   find . -iname PATTERN
+# f DIR PATTERN [ ARG... ]  -->  find DIR -[i]name PATTERN ARG...
+f() {
+    if [ $# -ge 2 ]; then
+        dir="$1"
+        shift
+        if ! [ -d "$dir" ]; then
+            echo "> Error \`$dir' is not a directory" >&2
+            return 1
+        fi
+    elif [ $# -eq 1 ]; then
+        dir="."
+    elif [ $# -eq 0 ]; then
+        echo "> Error: too few arguments for function f()" >&2
+        return 1
+    fi
+
+    if grep -q '[[:upper:]]' <<<"$1"; then
+        matcher="-name"
+    else
+        matcher="-iname"
+    fi
+    echo "> find $dir $matcher $@" >&2
+    find "$dir" "$matcher" "$@"
+}
+
 ..() {
     if [ -z "$1" ]; then
 	cd ..
