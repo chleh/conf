@@ -69,6 +69,9 @@ call IMAP('IGR', '\includegraphics[scale=0.5]{<++>}<++>', 'tex')
 " environment align*
 "call IMAP('EAL', "\\begin{align*}\<CR><++>\<CR>\\end{align*}<++>", 'tex')
 
+" figure
+call IMAP('EFI', "\\begin{figure}\<CR>\\includegraphics[width=<++>\\linewidth]{<+file+>}\<CR>\\caption{<+caption+>}\<CR>\\end{figure}", 'tex')
+
 "" beamer
 "
 " new frame
@@ -95,3 +98,7 @@ call IMAP('|->', '\mapsto ', 'tex')
 "
 call IMAP('MCM', '\multicolumn{<+num+>}{<+coldef+>}{<+content+>}', 'tex')
 
+
+"" Disable some defaults
+"
+call IMAP('FEM', 'FEM', 'tex')

@@ -47,7 +47,8 @@ endif
 vnoremap <C-Del> "+y
 vnoremap <C-Ins> "+p
 inoremap <C-Ins> <Esc>"+p`]a
-nnoremap <C-Ins> "+P`]
+"inoremap <C-Ins> <C-O>"+p<C-O>`]<C-O>a
+nnoremap <C-Ins> "+p`]
 " select pasted text
 nnoremap gp `[v`]
 
@@ -82,6 +83,7 @@ let g:tex_flavor='latex'
 
 autocmd FileType tex,latex setlocal shiftwidth=2 sts=2 et
 autocmd FileType tex,latex setlocal formatoptions-=t
+autocmd FileType tex,latex setlocal linebreak
 
 " options controlling latex-suite
 autocmd FileType tex,latex setlocal grepprg=grep\ -nH\ $*
