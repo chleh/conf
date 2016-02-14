@@ -17,6 +17,8 @@
 [core]
     pager = less -RSX
     excludesfile = ~/.gitignore
+[pull]
+    ff = only
 [push]
     default = simple
 
