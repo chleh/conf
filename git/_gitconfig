@@ -8,6 +8,10 @@
     dh = difftool -d HEAD^
     dn = difftool --name-only
     dt = difftool
+    l1 = log -1 --stat --oneline
+    l2 = log -2 --stat --oneline
+    l3 = log -3 --stat --oneline
+    l4 = log -4 --stat --oneline
     mg = merge
     mt = mergetool
     pfush = push --force-with-lease
