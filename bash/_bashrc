@@ -8,6 +8,10 @@
 export EDITOR=/usr/bin/vim
 export PATH="$HOME/bin:$PATH"
 
+if [ -d "/opt/vtk6/lib/python2.7/site-packages" ]; then
+    export PYTHONPATH="${PYTHONPATH}:/opt/vtk6/lib/python2.7/site-packages"
+fi
+
 # don't put duplicate lines in the history. See bash(1) for more options
 #export HISTCONTROL=ignoredups
 export HISTCONTROL=erasedups # delete same commands from history
