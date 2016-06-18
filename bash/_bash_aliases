@@ -81,6 +81,8 @@ s() {
 	return 1
     fi
 }
+# enable wrapped command completion
+complete -F _command s
 
 # uses sudo su to gain root privileges (if no arguments are given),
 # i.e. shell starts in current directory
