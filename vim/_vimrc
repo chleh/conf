@@ -55,7 +55,7 @@ nnoremap gp `[v`]
 
 """ GVim
 "
-set guifont=Monospace\ 9
+set guifont=Monospace\ 8
 set guioptions=faigrLe
 
 
@@ -114,7 +114,7 @@ let g:Tex_PackagesMenu = 1
 let g:Tex_HotKeyMappings = ""
 
 " customize folding
-let g:Tex_FoldedSections = 'part,chapter,%%fakesection'
+let g:Tex_FoldedSections = '' "part,chapter,%%fakesection'
 let g:Tex_FoldedEnvironments = ''
 "let g:Tex_FoldedCommands = ''
 let g:Tex_FoldedMisc = '<<<'
@@ -124,8 +124,9 @@ let g:Tex_Env_longtable = "\\begin{longtable}{<+format+>}\r<++>\r\\end{longtable
 
 " workaround some bugs
 let g:Tex_package_detected = 'graphicx'
-" change the respective line in texviewer.vim ~144
-"let g:Tex_ImageDir = '.'
+" note: also change the respective line in texviewer.vim ~144
+" cf. https://sourceforge.net/p/vim-latex/mailman/message/28380629/
+let g:Tex_ImageDir = '.'
 "
 """ LaTeX end
 
@@ -150,6 +151,14 @@ autocmd! BufRead,BufNewFile *.plot setlocal filetype=gnuplot
 """ CSV files
 "
 autocmd! BufRead,BufNewFile *.csv setlocal nowrap syntax=off cursorline guioptions+=b
+
+""" VTK
+"
+autocmd! BufRead,BufNewFile *.vtu setlocal filetype=xml nowrap
+
+""" OGS
+"
+autocmd! BufRead,BufNewFile *.prj setlocal filetype=xml
 
 
 """ tagbar plugin
