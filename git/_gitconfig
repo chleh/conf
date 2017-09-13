@@ -1,26 +1,38 @@
 [alias]
     b  = branch
+    bta = for-each-ref --sort=-committerdate refs/heads '--format=%(objectname:short) %(committerdate:short)  %(align:left,30)%(color:green)%(refname:short)%(color:reset)%(end) %(contents:subject)'
+    bt = !git bta --count=20
     ca = commit -a
     ci = commit
     co = checkout
     cp = cherry-pick
+    d  = diff --no-ext-diff
     dd = difftool -d
     dh = difftool -d HEAD^
     dn = difftool --name-only
+    ds = diff --stat
+    dsub = diff-submodule
+    dc = diff --cached
     dt = difftool
-    l1 = log -1 --stat --oneline
-    l2 = log -2 --stat --oneline
-    l3 = log -3 --stat --oneline
-    l4 = log -4 --stat --oneline
+    l1 = !git log -1 --stat --oneline --decorate
+    l2 = !git log -2 --stat --oneline --decorate
+    l3 = !git log -3 --stat --oneline --decorate
+    l4 = !git log -4 --stat --oneline --decorate
     mg = merge
     mt = mergetool
     pfush = push --force-with-lease
     rb = rebase
     rc = rebase --continue
     s  = status
+    show-merged-master = !git branch --merged master | grep -v '^\\*'
+    rebase-reformat = !git rebase -i -X theirs -x \"git clang-format HEAD^ && git diff && read -r -p 'Hit enter to continue' && git commit --all --amend --no-edit\"
 [core]
-    pager = less -RSX
+    # pager = LESS=RS less
+    pager = less-for-git
     excludesfile = ~/.gitignore
+    attributesfile = ~/.gitattributes
+[commit]
+    cleanup = scissors
 [pull]
     ff = only
 [push]
@@ -29,15 +41,20 @@
 [diff "bin"]
     textconv = hexdump -v -C
 
-[diff "png"]
-    textconv = png2pnm -n
+[diff "image"]
+    command = git-imgdiff
 
 [diff "odt"]
     binary = true
     textconv = odt2txt
 
+[diff "npz"]
+    binary = true
+    textconv = ~/bin/npz2txt
+
 [diff]
     tool = meld
+    submodule = log
 
 [difftool "meld"]
     cmd = meld \"$LOCAL\" \"$REMOTE\"
@@ -48,7 +65,10 @@
 [merge]
     tool = meld
 
+[mergetool]
+    keepBackup = false
+
 [include]
     path = .gituser
 [gui]
-	spellingdictionary = none
+    spellingdictionary = none
