@@ -17,6 +17,11 @@ if [ "$TERM" != "dumb" ]; then
 fi
 
 alias mnt=mount
+alias a+x='chmod a+x'
+
+lth() {
+    ls -t "$@" | head
+}
 
 # Wrapper for find
 # Usage:
