@@ -59,8 +59,8 @@ call IMAP('`H', '\hbar ', 'tex')
 call IMAP('NCM', "\\newcommand{\\<++>}{<++>}", 'tex')
 
 " includegraphics
-" call IMAP('IGR', '\includegraphics[width=<++>\linewidth]{<+file+>}<++>', 'tex')
 call IMAP('IGR', '\includegraphics[scale=0.5]{<++>}<++>', 'tex')
+call IMAP('IGL', '\includegraphics[width=<++>\linewidth]{<++>}<++>', 'tex')
 
 
 
@@ -70,7 +70,7 @@ call IMAP('IGR', '\includegraphics[scale=0.5]{<++>}<++>', 'tex')
 "call IMAP('EAL', "\\begin{align*}\<CR><++>\<CR>\\end{align*}<++>", 'tex')
 
 " figure
-call IMAP('EFI', "\\begin{figure}\<CR>\\includegraphics[width=<++>\\linewidth]{<+file+>}\<CR>\\caption{<+caption+>}\<CR>\\end{figure}", 'tex')
+call IMAP('EFI', "\\begin{figure}\<CR>\\centering\<CR>\\includegraphics[width=<++>\\linewidth]{<++>}\<CR>\\caption{<+caption+>}\<CR>\\label{fig:<+label+>}\<CR>\\end{figure}", 'tex')
 
 "" beamer
 "
@@ -80,6 +80,9 @@ call IMAP('EFM', "\\begin{frame}\<CR>\\frametitle{<+title+>}\<CR>\<CR><++>\<CR>\
 " columns
 call IMAP('ECM', "\\begin{columns}[t,onlytextwidth]\<CR>\\begin{column}{.48\\linewidth}\<CR><++>\<CR>\\end{column}\<CR>\<CR>\\begin{column}{.48\\linewidth}\<CR><++>\<CR>\\end{column}\<CR>\\end{columns}<++>", 'tex')
 
+"" New document
+"
+call IMAP('EDO', "\\documentclass[<+options+>]{<+class+>}\<CR>\<CR>\\usepackage[T1]{fontenc}\<CR>\\usepackage[utf8]{inputenc}\<CR>\\usepackage[<+options+>]{babel}\<CR>\<CR>\\begin{document}\<CR><++>\<CR>\\end{document}", "tex")
 
 "" Arrow-like
 "
@@ -102,3 +105,4 @@ call IMAP('MCM', '\multicolumn{<+num+>}{<+coldef+>}{<+content+>}', 'tex')
 "" Disable some defaults
 "
 call IMAP('FEM', 'FEM', 'tex')
+call IMAP('{{', '{{', 'tex')
