@@ -82,10 +82,7 @@ $color$hr${if_up enp0s25}
 ${color1}enp0s25 (${addr enp0s25}) $alignr$color↑${upspeed enp0s25} ↓${downspeed enp0s25}
 ${color1}${upspeedgraph enp0s25 20,124 ffffff 999999} $alignr${downspeedgraph enp0s25 20,124 ffffff 999999}$endif${if_up wlp2s0}
 ${color1}wlp2s0 (${wireless_essid wlp2s0}) $alignr$color↑${upspeed wlp2s0} ↓${downspeed wlp2s0}
-${color1}${upspeedgraph wlp2s0 20,124 ffffff 999999} $alignr${downspeedgraph wlp2s0 20,124 ffffff 999999}$endif${if_up ppp0}
-${color1}ppp0 (${addr ppp0}) $alignr$color↑${upspeed ppp0} ↓${downspeed ppp0}
-${color1}${upspeedgraph ppp0 20,124 ffffff 999999} $alignr${downspeedgraph ppp0 20,124 ffffff 999999}
-${color1}total traffic$color$alignr${execi 300 vnstat -m --oneline -i ppp0 | cut -d';' -f8,11 --output-delimiter=' -- '}$endif${if_up tun0}
+${color1}${upspeedgraph wlp2s0 20,124 ffffff 999999} $alignr${downspeedgraph wlp2s0 20,124 ffffff 999999}$endif${if_up tun0}
 ${color1}tun0 (${addr tun0})$endif${if_up tun1}
 ${color1}tun1 (${addr tun1})$endif
 $color$hr
