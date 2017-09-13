@@ -1,0 +1,66 @@
+# use 70% of the linewidth of a standard scrartcl
+# output will actually use 140% -> scale by 0.5
+
+figure.figsize: 11.4, 3.5
+# figure.dpi: 300
+figure.subplot.left: 0.1
+figure.subplot.bottom: 0.18
+figure.subplot.right: 0.95
+figure.subplot.top: 0.95
+
+# https://aur.archlinux.org/packages/otf-cm-unicode/
+mathtext.fontset: custom
+mathtext.rm:  CMU Sans Serif
+mathtext.it:  CMU Sans Serif:italic
+mathtext.bf:  CMU Sans Serif:bold
+mathtext.cal: CMU Sans Serif:cursive
+mathtext.sf:  CMU Sans Serif
+
+
+font.size: 16.0
+# font.sans-serif: STIXGeneral
+font.sans-serif : CMU Sans Serif
+# font.sans-serif : Latin Modern Sans
+# Bitstream Vera Sans, Lucida Grande, Verdana, Geneva, Lucid, Arial, Helvetica, Avant Garde, sans-serif
+
+axes.titlesize: large
+axes.labelsize: large
+axes.linewidth: 0.8
+axes.formatter.use_mathtext : True
+axes.axisbelow: True
+
+grid.linewidth: 0.4
+grid.color: 0.75
+grid.linestyle: :
+
+xtick.major.size     : 4      # major tick size in points
+xtick.minor.size     : 2      # minor tick size in points
+xtick.major.width    : 0.8    # major tick width in points
+xtick.minor.width    : 0.8    # minor tick width in points
+xtick.major.pad      : 4      # distance to major tick label in points
+xtick.minor.pad      : 4      # distance to the minor tick label in points
+xtick.color          : k      # color of the tick labels
+xtick.labelsize      : medium # fontsize of the tick labels
+xtick.direction      : in     # direction: in, out, or inout
+
+ytick.major.size     : 4      # major tick size in points
+ytick.minor.size     : 3      # minor tick size in points
+ytick.major.width    : 0.8    # major tick width in points
+ytick.minor.width    : 0.8    # minor tick width in points
+ytick.major.pad      : 4      # distance to major tick label in points
+ytick.minor.pad      : 4      # distance to the minor tick label in points
+ytick.color          : k      # color of the tick labels
+ytick.labelsize      : medium # fontsize of the tick labels
+ytick.direction      : in     # direction: in, out, or inout
+
+lines.linewidth: 1.4
+lines.markeredgewidth: .4
+lines.markersize: 4.8
+
+patch.linewidth: 0.8
+
+text.usetex: False
+
+legend.fontsize: medium
+legend.frameon: False
+
