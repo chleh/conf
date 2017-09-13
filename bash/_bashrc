@@ -11,6 +11,9 @@ export PATH="$HOME/bin:$PATH"
 if [ -d "/opt/vtk6/lib/python2.7/site-packages" ]; then
     export PYTHONPATH="${PYTHONPATH}:/opt/vtk6/lib/python2.7/site-packages"
 fi
+if [ -f ~/.pystartup ]; then
+    export PYTHONSTARTUP=~/.pystartup
+fi
 
 # don't put duplicate lines in the history. See bash(1) for more options
 #export HISTCONTROL=ignoredups
@@ -21,13 +24,28 @@ export HISTSIZE=5000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+shopt -s histappend
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(lesspipe)"
 
 
+__prompt() {
+    local stat="$?"
+
+    if [ "$stat" != 0 ]; then
+        __prompt_prefix="[$stat]"
+        __prompt_prefix_sep=" "
+    else
+        __prompt_prefix=""
+        __prompt_prefix_sep=""
+    fi
+}
+
 # set prompt
 PS1_COLOR=''
 PS1_UNCOLOR=''
+
 title=''
 
 
@@ -38,14 +56,15 @@ isSshConn() {
     fi
 
     local pid=$$
-    local sshd="`which sshd`"
+    local sshd="`which sshd || echo /bin/false`"
 
     pstree -p -s $pid -l -A | head -n 1 |  sed -e 's_[^0-9]*(\([0-9]\+\))_\1\n_g' \
     | (
         #echo "$pid $sshd"
         while read p; do
             #echo "-> $p `readlink /proc/$p/exe`"
-            if [ "`readlink /proc/$p/exe`" = "$sshd" ]; then
+            pexe="`readlink /proc/$p/exe || echo /bin/true`"
+            if [ "$pexe" = "$sshd" ]; then
                 #echo "in ssh"
                 exit 0
             fi
@@ -94,7 +113,8 @@ if [ "$PS1_COLOR" ]; then
 	PS1_UNCOLOR='\[\033[0m\]'
 fi
 
-PS1="$PS1_COLOR\\u@\\h:\\W\\\$$PS1_UNCOLOR$title "
+PS1="\\[\\e]0;\\u@\\h: \\w\\a\\]\\[\\033[1;97;41m\\]\$__prompt_prefix\\[\\033[0m\\]\$__prompt_prefix_sep$PS1_COLOR\\u@\\h:\\W\\\$$PS1_UNCOLOR$title "
+PROMPT_COMMAND=__prompt
 
 unset PS1_COLOR PS1_UNCOLOR title
 unset -f isSshConn
