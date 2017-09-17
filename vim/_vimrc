@@ -105,7 +105,9 @@ function! SyncTexForward()
     let l:tex_prj_file = Tex_GetMainFileName(':t:r')
     let l:src = fnameescape(expand('%:p'))
     let l:pdf = fnameescape(l:tex_prj_path . '/out/' . l:tex_prj_file . '.pdf')
-    let l:execstr = '!zathura --synctex-forward ' . line('.') . ':1:' . l:src . ' '
+    let l:execstr = '!zathura --synctex-forward '
+        \ . line('.') . ':1:' . l:src . ' '
+        \ . '-x "gvim --servername "' . v:servername .'" --remote +\%{line} \%{input}" '
         \ . l:pdf . ' &'
     silent execute l:execstr
 endfunction
