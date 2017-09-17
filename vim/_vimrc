@@ -98,6 +98,20 @@ let g:Tex_ViewRuleComplete_pdf = 'zathura -x "gvim --servername \"{v:servername}
 let g:Tex_ViewRule_ps = 'xdg-open'
 let g:Tex_ViewRule_dvi = 'xdg-open'
 
+" Forward search
+" syntax for zathura: zathura --synctex-forward 193:1:paper.tex paper.pdf
+function! SyncTexForward()
+    let l:tex_prj_path = Tex_GetMainFileName(':p:h')
+    let l:tex_prj_file = Tex_GetMainFileName(':t:r')
+    let l:src = fnameescape(expand('%:p'))
+    let l:pdf = fnameescape(l:tex_prj_path . '/out/' . l:tex_prj_file . '.pdf')
+    let l:execstr = '!zathura --synctex-forward ' . line('.') . ':1:' . l:src . ' '
+        \ . l:pdf . ' &'
+    silent execute l:execstr
+endfunction
+nmap lf :call SyncTexForward() <CR>
+
+
 " let g:Tex_CompileRule_pdf = 'pdflatex -synctex=1 -interaction=nonstopmode -output-directory out $*'
 let g:Tex_CompileRule_pdf = 'pdflatex -output-directory=out -interaction=nonstopmode -halt-on-error -synctex=1 $*'
 let g:Tex_GotoError = 0
